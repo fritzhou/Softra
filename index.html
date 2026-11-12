@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-tone="light" data-accent="theme">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Softra | Typing practice in soft UI</title>
+  <meta name="description" content="Softra is a minimalist typing test and practice platform with a soft neumorphic design.">
+  <meta name="theme-color" content="#E8EAF0">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script>
+    /* Apply saved appearance before first paint to avoid a flash */
+    try {
+      var s = JSON.parse(localStorage.getItem('neutype:settings') || '{}');
+      var r = document.documentElement.dataset;
+      var T = ['light', 'mint', 'rose', 'sand', 'ocean', 'lavender', 'peach', 'lemon', 'sky', 'blush', 'sage', 'coral', 'aqua', 'slate', 'lilac', 'iris', 'honey', 'pearl', 'cherry', 'glacier', 'dark', 'midnight', 'forest', 'mocha', 'charcoal', 'obsidian', 'plum', 'wine', 'deepocean', 'ember', 'pine', 'steel', 'cocoa', 'neon', 'abyss', 'grape', 'rust', 'graphite', 'moss'];
+      var th = T.indexOf(s.theme) > -1 ? s.theme : 'light';
+      r.theme = th;
+      r.tone = (['dark', 'midnight', 'forest', 'mocha', 'charcoal', 'obsidian', 'plum', 'wine', 'deepocean', 'ember', 'pine', 'steel', 'cocoa', 'neon', 'abyss', 'grape', 'rust', 'graphite', 'moss'].indexOf(th) > -1) ? 'dark' : 'light';
+      r.accent = s.accent || 'theme';
+      if (s.fontSize) r.fs = s.fontSize;
+      if (s.font) r.font = s.font;
+      if (s.caret) r.caret = s.caret;
+      r.contrast = s.highContrast ? 'high' : 'normal';
+      r.motion = s.reducedMotion ? 'reduced' : 'normal';
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-restart" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.1-2.5 3.6M12 17h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <a class="logo" href="#test" aria-label="Softra home">
+    <span class="logo-badge"><svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true"></svg></span>
+    <span class="logo-text">SOFTRA</span>
+  </a>
+
+  <nav class="main-nav" aria-label="Main">
+    <a class="nav-link" href="#test" data-view="test">Test</a>
+    <a class="nav-link" href="#practice" data-view="practice">Practice</a>
+    <a class="nav-link" href="#leaderboard" data-view="leaderboard">Leaderboard</a>
+    <a class="nav-link" href="#versus" data-view="versus">Versus</a>
+    <a class="nav-link" href="#settings" data-view="settings">Settings</a>
+  </nav>
+
+  <div class="header-actions">
+    <button class="btn icon-btn" id="helpBtn" type="button" aria-haspopup="dialog" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (Alt + /)">
+      <svg class="icon" aria-hidden="true"><use href="#i-help"/></svg>
+    </button>
+    <button class="btn icon-btn" id="themeToggle" type="button" aria-pressed="false" aria-label="Dark theme" title="Toggle light / dark (Alt + L)">
+      <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+    </button>
+    <button class="btn profile-btn" id="profileBtn" type="button" aria-haspopup="dialog">
+      <span class="avatar" id="profileAvatar"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+      <span id="profileLabel">Guest</span>
+    </button>
+  </div>
+</header>
+
+<main id="main" class="container">
+
+  <!-- ================= TEST ================= -->
+  <section id="view-test" class="view" aria-label="Typing test">
+    <div class="session-bar neu" id="sessionBar" hidden>
+      <div><span class="session-tag">Practice</span> <strong id="sessionLabel"></strong></div>
+      <div class="session-actions">
+        <button class="btn" type="button" id="sessionFinish" hidden>Finish</button>
+        <button class="btn" type="button" id="sessionExit">Exit practice</button>
+      </div>
+    </div>
+    <div class="toolbar neu" role="group" aria-label="Test options">
+      <div class="tool-group">
+        <span class="tool-label" id="lblTime">Time</span>
+        <div class="seg" role="group" aria-labelledby="lblTime">
+          <button class="btn" type="button" data-mode="time" data-value="15">15s</button>
+          <button class="btn" type="button" data-mode="time" data-value="30">30s</button>
+          <button class="btn" type="button" data-mode="time" data-value="60">60s</button>
+          <button class="btn" type="button" data-mode="time" data-value="120">120s</button>
+        </div>
+      </div>
+      <div class="tool-group">
+        <span class="tool-label" id="lblWords">Words</span>
+        <div class="seg" role="group" aria-labelledby="lblWords">
+          <button class="btn" type="button" data-mode="words" data-value="10">10</button>
+          <button class="btn" type="button" data-mode="words" data-value="25">25</button>
+          <button class="btn" type="button" data-mode="words" data-value="50">50</button>
+          <button class="btn" type="button" data-mode="words" data-value="100">100</button>
+        </div>
+      </div>
+      <div class="tool-group">
+        <span class="tool-label" id="lblCustom">Custom</span>
+        <div class="seg" role="group" aria-labelledby="lblCustom">
+          <button class="btn" type="button" id="customBtn" aria-haspopup="dialog">Custom</button>
+        </div>
+      </div>
+      <div class="tool-group">
+        <span class="tool-label" id="lblDiff">Difficulty</span>
+        <div class="seg" role="group" aria-labelledby="lblDiff">
+          <button class="btn" type="button" data-difficulty="beginner">Beginner</button>
+          <button class="btn" type="button" data-difficulty="easy">Easy</button>
+          <button class="btn" type="button" data-difficulty="medium">Medium</button>
+          <button class="btn" type="button" data-difficulty="hard">Hard</button>
+          <button class="btn" type="button" data-difficulty="expert">Expert</button>
+          <button class="btn" type="button" data-difficulty="master">Master</button>
+        </div>
+      </div>
+      <div class="tool-group">
+        <label class="tool-label" for="langTool">Language</label>
+        <select class="select neu-inset" id="langTool" data-lang-select></select>
+      </div>
+      <div class="tool-group">
+        <span class="tool-label" id="lblExtras">Extras</span>
+        <div class="seg" role="group" aria-labelledby="lblExtras">
+          <button class="btn" type="button" data-toggle="punctuation" aria-pressed="false" title="Alt + P">Punctuation</button>
+          <button class="btn" type="button" data-toggle="numbers" aria-pressed="false" title="Alt + N">Numbers</button>
+        </div>
+      </div>
+      <div class="chips">
+        <a class="source-chip" id="sourceChip" href="#practice" title="Change text source in Practice">Random words</a>
+        <a class="source-chip goal-chip" id="goalChip" href="#leaderboard" title="Daily streak and goal"></a>
+      </div>
+    </div>
+
+    <div class="race-bar neu" id="raceBar" aria-label="Race scoreboard">
+      <div class="race-head"><strong id="raceTitle">Race</strong><span id="raceNote" role="status" aria-live="polite"></span></div>
+      <div class="race-rows" id="raceRows"></div>
+    </div>
+
+    <div id="testArea">
+      <div class="stats" aria-label="Live statistics">
+        <div class="stat neu-sm"><span class="stat-value accent" id="sWpm">0</span><span class="stat-label">WPM</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="sRaw">0</span><span class="stat-label">Raw WPM</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="sAcc">—</span><span class="stat-label">Accuracy</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="sErr">0</span><span class="stat-label">Errors</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="sTime">30s</span><span class="stat-label" id="sTimeLabel">Remaining</span></div>
+      </div>
+
+      <div class="progress" id="progress" role="progressbar" aria-label="Test progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="progress-fill" id="progFill"></span>
+      </div>
+
+      <div class="test-panel neu-inset" id="testPanel">
+        <p class="focus-hint" aria-hidden="true">
+          <span class="h-fine">Click here or press any key to focus</span>
+          <span class="h-coarse">Tap here to start typing</span>
+          <span class="h-paused">Paused. Press any key to continue</span>
+        </p>
+        <div class="viewport" id="viewport">
+          <div class="words" id="words" aria-label="Text to type">
+            <span class="caret" id="caret" aria-hidden="true"></span>
+            <div class="word-list" id="wordList"></div>
+          </div>
+        </div>
+        <!-- Hidden input captures typing so no visible field is needed -->
+        <input id="typingInput" class="capture" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Typing input. Start typing the text shown above.">
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="restartBtn" type="button"><svg class="icon" aria-hidden="true"><use href="#i-restart"/></svg> Restart</button>
+        <button class="btn" id="kbToggle" type="button" data-toggle="showKeyboard" aria-pressed="true" title="Alt + K"><svg class="icon" aria-hidden="true"><use href="#i-keyboard"/></svg> Keyboard</button>
+        <p class="hint"><kbd>Tab</kbd> + <kbd>Enter</kbd> or <kbd>Esc</kbd> to restart</p>
+      </div>
+
+      <div class="keyboard neu" id="keyboard" aria-hidden="true"></div>
+    </div>
+
+    <!-- Results -->
+    <section id="results" class="results neu" hidden aria-labelledby="resultsTitle">
+      <h2 id="resultsTitle" class="sr-only">Test results</h2>
+      <p class="pb-badge" id="pbBadge" hidden>New personal best!</p>
+      <div class="result-main">
+        <div class="big-stat neu-inset"><span class="stat-label">WPM</span><span class="big accent" id="rWpm">0</span></div>
+        <div class="big-stat neu-inset"><span class="stat-label">Accuracy</span><span class="big" id="rAcc">0%</span></div>
+      </div>
+      <div class="result-grid">
+        <div class="stat neu-sm"><span class="stat-value" id="rRaw">0</span><span class="stat-label">Raw WPM</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="rCorrect">0</span><span class="stat-label">Correct chars</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="rIncorrect">0</span><span class="stat-label">Incorrect chars</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="rTotal">0</span><span class="stat-label">Total chars</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="rErrors">0</span><span class="stat-label">Errors made</span></div>
+        <div class="stat neu-sm"><span class="stat-value" id="rDuration">0s</span><span class="stat-label">Duration</span></div>
+        <div class="stat neu-sm"><span class="stat-value small" id="rMode">—</span><span class="stat-label">Test</span></div>
+      </div>
+      <figure class="chart-wrap neu-inset">
+        <canvas id="chart" role="img" aria-label="Line chart of words per minute over time"></canvas>
+      </figure>
+      <div class="weak neu-inset" id="weakWrap" hidden>
+        <div>
+          <h3>Keys to practice</h3>
+          <div class="weak-list" id="weakList"></div>
+        </div>
+        <button class="btn" id="weakBtn" type="button">Practice these keys</button>
+      </div>
+      <div class="session-note neu-inset" id="sessionNote" hidden aria-live="polite"></div>
+      <div class="ach-new neu-inset" id="achNew" hidden aria-live="polite"></div>
+      <div class="result-actions">
+        <button class="btn primary" id="retryBtn" type="button"><svg class="icon" aria-hidden="true"><use href="#i-restart"/></svg> Retry</button>
+        <button class="btn" id="newBtn" type="button">New test</button>
+        <button class="btn" id="shareBtn" type="button"><svg class="icon" aria-hidden="true"><use href="#i-share"/></svg> Share card</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= PRACTICE ================= -->
+  <section id="view-practice" class="view" aria-labelledby="practiceTitle" hidden>
+    <div class="page-head">
+      <h1 id="practiceTitle">Practice</h1>
+      <p>Learn the keys, train your weak spots, or just type something you like.</p>
+    </div>
+
+    <h2 class="section-title first">Lessons <span class="ach-count" id="lessonCount"></span></h2>
+    <div id="lessonTiers"></div>
+
+    <h2 class="section-title">Training</h2>
+    <div class="source-grid" id="trainGrid" role="group" aria-label="Training modes">
+      <button class="source-card neu" type="button" data-train="daily"><strong>Daily challenge</strong><span id="dailyStatus">Same text for everyone today.</span></button>
+      <button class="source-card neu" type="button" data-train="ladder"><strong>Speed ladder</strong><span id="ladderStatus">Hit each WPM target to climb.</span></button>
+      <button class="source-card neu" type="button" data-train="fingers"><strong>Finger drills</strong><span>Train one finger, one hand, or both.</span></button>
+      <button class="source-card neu" type="button" data-train="pairs"><strong>Letter pairs</strong><span>Drill the pairs and triplets you trip on.</span></button>
+      <button class="source-card neu" type="button" data-train="zen"><strong>Zen mode</strong><span>No timer, no score. Just calm typing.</span></button>
+      <button class="source-card neu" type="button" data-train="blind"><strong>Blind mode</strong><span>No color feedback until you finish.</span></button>
+      <button class="source-card neu" type="button" data-train="book"><strong>Book reader</strong><span>Type your own text, page by page, and resume later.</span></button>
+    </div>
+    <div class="neu panel train-panel" id="trainPanel" hidden></div>
+
+    <h2 class="section-title">Free practice <span class="ach-count">your time or word mode: <strong id="practiceMode">30s</strong></span></h2>
+
+    <div class="source-grid" id="sourceGrid" role="group" aria-label="Text source">
+      <button class="source-card neu" type="button" data-source="common"><strong>Common words</strong><span>The most used English words.</span></button>
+      <button class="source-card neu" type="button" data-source="quotes"><strong>English quotes</strong><span>Real sentences with punctuation.</span></button>
+      <button class="source-card neu" type="button" data-source="random"><strong>Random words</strong><span>A wider mix from the word bank.</span></button>
+      <button class="source-card neu" type="button" data-source="code"><strong>Programming</strong><span>Keywords and terms developers type.</span></button>
+      <button class="source-card neu" type="button" data-source="keys"><strong>Weak keys</strong><span>Words built from the letters you miss most.</span></button>
+      <button class="source-card neu" type="button" data-source="custom"><strong>Custom text</strong><span>Paste or write your own practice text.</span></button>
+    </div>
+
+    <div class="neu panel" id="customTextWrap" hidden>
+      <label for="customText" class="field-label">Your text</label>
+      <textarea id="customText" class="field neu-inset" rows="5" placeholder="Type or paste the text you want to practice..."></textarea>
+      <p class="hint">In word mode the test ends when you finish your text. In time mode it repeats until time is up.</p>
+    </div>
+
+    <div class="neu panel practice-controls">
+      <div class="tool-group">
+        <span class="tool-label" id="lblDiff2">Difficulty</span>
+        <div class="seg" role="group" aria-labelledby="lblDiff2">
+          <button class="btn" type="button" data-difficulty="beginner">Beginner</button>
+          <button class="btn" type="button" data-difficulty="easy">Easy</button>
+          <button class="btn" type="button" data-difficulty="medium">Medium</button>
+          <button class="btn" type="button" data-difficulty="hard">Hard</button>
+          <button class="btn" type="button" data-difficulty="expert">Expert</button>
+          <button class="btn" type="button" data-difficulty="master">Master</button>
+        </div>
+      </div>
+      <div class="tool-group">
+        <span class="tool-label" id="lblExtras2">Extras</span>
+        <div class="seg" role="group" aria-labelledby="lblExtras2">
+          <button class="btn" type="button" data-toggle="punctuation" aria-pressed="false">Punctuation</button>
+          <button class="btn" type="button" data-toggle="numbers" aria-pressed="false">Numbers</button>
+        </div>
+      </div>
+      <button class="btn primary" id="startPractice" type="button">Start practice</button>
+    </div>
+  </section>
+
+  <!-- ================= LEADERBOARD ================= -->
+  <section id="view-leaderboard" class="view" aria-labelledby="lbTitle" hidden>
+    <div class="page-head">
+      <h1 id="lbTitle">Leaderboard</h1>
+      <p>Your personal records and best runs, saved on this device only.</p>
+    </div>
+    <div class="stats lb-summary" id="lbSummary"></div>
+
+    <h2 class="section-title">Achievements <span class="ach-count" id="achCount"></span></h2>
+    <div class="ach-bar neu-inset" id="achBar" role="progressbar" aria-label="Achievements unlocked" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="achFill"></span></div>
+    <div class="ach-grid" id="achGrid"></div>
+
+    <h2 class="section-title">Progress</h2>
+    <figure class="chart-wrap neu-inset panel" id="histWrap">
+      <canvas id="histChart" role="img" aria-label="Line chart of your recent WPM results"></canvas>
+      <p class="empty" id="histEmpty" hidden>Finish at least two tests to see your progress chart.</p>
+    </figure>
+
+    <h2 class="section-title">Weak keys</h2>
+    <div class="neu panel weak-all">
+      <div class="weak-list" id="lbWeak"></div>
+      <button class="btn" id="lbWeakBtn" type="button">Practice weak keys</button>
+    </div>
+
+    <h2 class="section-title">Personal bests</h2>
+    <div class="bests" id="lbBests"></div>
+    <h2 class="section-title">Top runs</h2>
+    <div class="neu panel table-wrap" id="lbTop"></div>
+    <h2 class="section-title">Recent history</h2>
+    <div class="neu panel table-wrap" id="lbHistory"></div>
+    <div class="actions">
+      <button class="btn" id="exportData" type="button">Export data</button>
+      <button class="btn" id="importBtn" type="button">Import data</button>
+      <input type="file" id="importFile" accept="application/json,.json" class="sr-only" tabindex="-1" aria-label="Import data file">
+      <button class="btn danger" id="clearData" type="button">Clear history &amp; records</button>
+    </div>
+  </section>
+
+  <!-- ================= VERSUS ================= -->
+  <section id="view-versus" class="view" aria-labelledby="vsTitle" hidden>
+    <div class="page-head">
+      <h1 id="vsTitle">Versus</h1>
+      <p>Race friends in real time as a guest. One person creates a room, everyone else enters the same code.</p>
+    </div>
+
+    <div class="neu panel" id="vsSetup" hidden>
+      <h2 class="vs-h">Versus is not set up yet</h2>
+      <p class="hint" id="vsSetupMsg"></p>
+    </div>
+
+    <!-- 1. Entry -->
+    <div id="vsEntry">
+      <div class="neu panel">
+        <label class="field-label" for="vsName">Your guest name</label>
+        <input id="vsName" class="field neu-inset" type="text" maxlength="14" placeholder="Guest" autocomplete="off">
+      </div>
+      <div class="vs-entry-grid">
+        <div class="neu panel">
+          <h2 class="vs-h">Create a room</h2>
+          <p class="hint">You become the host, choose the format and settings, and share the room code.</p>
+          <div class="vs-btns"><button class="btn primary" id="vsCreate" type="button">Create room</button></div>
+        </div>
+        <form class="neu panel" id="vsJoinForm" autocomplete="off">
+          <h2 class="vs-h">Join a room</h2>
+          <label class="field-label" for="vsCodeIn">Room code</label>
+          <input id="vsCodeIn" class="field neu-inset code-input" type="text" maxlength="5" placeholder="ABCDE" autocapitalize="characters" spellcheck="false">
+          <div class="vs-btns"><button class="btn primary" id="vsJoin" type="submit">Join room</button></div>
+        </form>
+      </div>
+      <p class="vs-status" id="vsStatus" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- 2. Lobby -->
+    <div id="vsLobby" hidden>
+      <div class="neu panel vs-top">
+        <div>
+          <span class="tool-label">Room code</span>
+          <div class="vs-code" id="vsCode" aria-label="Room code">-----</div>
+        </div>
+        <div class="vs-btns">
+          <button class="btn" id="vsCopy" type="button">Copy code</button>
+          <button class="btn danger" id="vsLeave" type="button">Leave</button>
+        </div>
+      </div>
+      <div class="vs-grid">
+        <div class="neu panel">
+          <h2 class="vs-h">Players <span class="hint" id="vsCount"></span></h2>
+          <div id="vsPlayers"></div>
+        </div>
+        <div class="neu panel">
+          <h2 class="vs-h">Settings</h2>
+          <div id="vsSettings"></div>
+        </div>
+      </div>
+      <div class="neu panel vs-actions" id="vsActions"></div>
+    </div>
+
+    <!-- 3. Results -->
+    <div id="vsResults" hidden>
+      <div class="neu panel" id="vsResultBody"></div>
+      <div class="actions">
+        <button class="btn" id="vsCard" type="button"><svg class="icon" aria-hidden="true"><use href="#i-share"/></svg> Share card</button>
+        <button class="btn primary" id="vsAgain" type="button">Back to lobby</button>
+        <button class="btn danger" id="vsLeave2" type="button">Leave room</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SETTINGS ================= -->
+  <section id="view-settings" class="view" aria-labelledby="setTitle" hidden>
+    <div class="page-head"><h1 id="setTitle">Settings</h1><p>Saved automatically on this device.</p></div>
+
+    <h2 class="section-title first">Colors</h2>
+    <div class="neu panel settings-list">
+      <div class="setting-row col">
+        <div><strong>Theme</strong><span>Pick a soft UI palette. The moon/sun button in the header switches between light and dark.</span></div>
+        
+      <div class="theme-group-title">Light themes</div>
+      <div class="theme-grid" role="group" aria-label="Light themes">
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="light" style="--sw-bg:#E8EAF0;--sw-accent:#7C83FD;--sw-text:#303442"><span class="swatch-chip" aria-hidden="true"></span>Light</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="mint" style="--sw-bg:#E2EEE8;--sw-accent:#2FA27F;--sw-text:#28382F"><span class="swatch-chip" aria-hidden="true"></span>Mint</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="rose" style="--sw-bg:#F1E5E8;--sw-accent:#D85F89;--sw-text:#3D2E33"><span class="swatch-chip" aria-hidden="true"></span>Rose</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="sand" style="--sw-bg:#EEE7DA;--sw-accent:#C27F31;--sw-text:#382F25"><span class="swatch-chip" aria-hidden="true"></span>Sand</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="ocean" style="--sw-bg:#DFEAF3;--sw-accent:#3A82C6;--sw-text:#22364A"><span class="swatch-chip" aria-hidden="true"></span>Ocean</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="lavender" style="--sw-bg:#E9E6F3;--sw-accent:#8B6FD6;--sw-text:#2E2A42"><span class="swatch-chip" aria-hidden="true"></span>Lavender</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="peach" style="--sw-bg:#F4E6DF;--sw-accent:#DC5E36;--sw-text:#40302A"><span class="swatch-chip" aria-hidden="true"></span>Peach</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="lemon" style="--sw-bg:#F2EFD9;--sw-accent:#9C8000;--sw-text:#38361F"><span class="swatch-chip" aria-hidden="true"></span>Lemon</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="sky" style="--sw-bg:#E1EEF5;--sw-accent:#2D9CDB;--sw-text:#1F3544"><span class="swatch-chip" aria-hidden="true"></span>Sky</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="blush" style="--sw-bg:#F4E4EE;--sw-accent:#D4579E;--sw-text:#3F2A38"><span class="swatch-chip" aria-hidden="true"></span>Blush</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="sage" style="--sw-bg:#E6EBDF;--sw-accent:#6B8F4E;--sw-text:#2B3326"><span class="swatch-chip" aria-hidden="true"></span>Sage</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="coral" style="--sw-bg:#F5E4E2;--sw-accent:#E4574E;--sw-text:#402B2A"><span class="swatch-chip" aria-hidden="true"></span>Coral</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="aqua" style="--sw-bg:#DDEFEF;--sw-accent:#17A2A8;--sw-text:#1D3838"><span class="swatch-chip" aria-hidden="true"></span>Aqua</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="slate" style="--sw-bg:#E4E7EC;--sw-accent:#5A6B88;--sw-text:#272D38"><span class="swatch-chip" aria-hidden="true"></span>Slate</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="lilac" style="--sw-bg:#EEE4F2;--sw-accent:#B05FD0;--sw-text:#3A2A42"><span class="swatch-chip" aria-hidden="true"></span>Lilac</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="iris" style="--sw-bg:#E7E8F8;--sw-accent:#5B5FE0;--sw-text:#262847"><span class="swatch-chip" aria-hidden="true"></span>Iris</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="honey" style="--sw-bg:#F3EBD3;--sw-accent:#B7850A;--sw-text:#3B3220"><span class="swatch-chip" aria-hidden="true"></span>Honey</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="pearl" style="--sw-bg:#EEECEF;--sw-accent:#8160C4;--sw-text:#2F2B38"><span class="swatch-chip" aria-hidden="true"></span>Pearl</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="cherry" style="--sw-bg:#F6E3E6;--sw-accent:#CF3558;--sw-text:#42262C"><span class="swatch-chip" aria-hidden="true"></span>Cherry</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="glacier" style="--sw-bg:#E0F0F4;--sw-accent:#157F95;--sw-text:#1E3A42"><span class="swatch-chip" aria-hidden="true"></span>Glacier</button>
+      </div>
+      <div class="theme-group-title">Dark themes</div>
+      <div class="theme-grid" role="group" aria-label="Dark themes">
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="dark" style="--sw-bg:#262830;--sw-accent:#9097ff;--sw-text:#E4E6EF"><span class="swatch-chip" aria-hidden="true"></span>Dark</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="midnight" style="--sw-bg:#151A2D;--sw-accent:#8C9BFF;--sw-text:#E1E5F7"><span class="swatch-chip" aria-hidden="true"></span>Midnight</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="forest" style="--sw-bg:#1B2621;--sw-accent:#5FD0A0;--sw-text:#E0EEE6"><span class="swatch-chip" aria-hidden="true"></span>Forest</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="mocha" style="--sw-bg:#2A2320;--sw-accent:#E0A065;--sw-text:#F0E6DD"><span class="swatch-chip" aria-hidden="true"></span>Mocha</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="charcoal" style="--sw-bg:#232427;--sw-accent:#9BA3B5;--sw-text:#E6E7EA"><span class="swatch-chip" aria-hidden="true"></span>Charcoal</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="obsidian" style="--sw-bg:#121214;--sw-accent:#C792EA;--sw-text:#ECECF0"><span class="swatch-chip" aria-hidden="true"></span>Obsidian</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="plum" style="--sw-bg:#2B2030;--sw-accent:#D58BE8;--sw-text:#F0E4F4"><span class="swatch-chip" aria-hidden="true"></span>Plum</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="wine" style="--sw-bg:#2E1F25;--sw-accent:#F0728F;--sw-text:#F4E3E8"><span class="swatch-chip" aria-hidden="true"></span>Wine</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="deepocean" style="--sw-bg:#14262F;--sw-accent:#4FC3E8;--sw-text:#DFF0F6"><span class="swatch-chip" aria-hidden="true"></span>Deep Ocean</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="ember" style="--sw-bg:#2C211B;--sw-accent:#FF8A3D;--sw-text:#F4E6DB"><span class="swatch-chip" aria-hidden="true"></span>Ember</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="pine" style="--sw-bg:#17251F;--sw-accent:#7BD88F;--sw-text:#E1F0E6"><span class="swatch-chip" aria-hidden="true"></span>Pine</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="steel" style="--sw-bg:#1E2630;--sw-accent:#6FA8FF;--sw-text:#E3EAF4"><span class="swatch-chip" aria-hidden="true"></span>Steel</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="cocoa" style="--sw-bg:#2A1F1C;--sw-accent:#D9A27E;--sw-text:#F2E6DF"><span class="swatch-chip" aria-hidden="true"></span>Cocoa</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="neon" style="--sw-bg:#101820;--sw-accent:#2CF0C8;--sw-text:#E0F7F2"><span class="swatch-chip" aria-hidden="true"></span>Neon</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="abyss" style="--sw-bg:#0F1B2A;--sw-accent:#2EC4B6;--sw-text:#DDEBF2"><span class="swatch-chip" aria-hidden="true"></span>Abyss</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="grape" style="--sw-bg:#241B33;--sw-accent:#B07CFF;--sw-text:#EBE3F7"><span class="swatch-chip" aria-hidden="true"></span>Grape</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="rust" style="--sw-bg:#2B1E1B;--sw-accent:#E2683C;--sw-text:#F3E5DF"><span class="swatch-chip" aria-hidden="true"></span>Rust</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="graphite" style="--sw-bg:#1A1B1E;--sw-accent:#8AB4F8;--sw-text:#E8EAED"><span class="swatch-chip" aria-hidden="true"></span>Graphite</button>
+        <button class="theme-swatch" type="button" data-setting="theme" data-value="moss" style="--sw-bg:#1F251A;--sw-accent:#A8D45A;--sw-text:#E6EEDD"><span class="swatch-chip" aria-hidden="true"></span>Moss</button>
+      </div>
+      </div>
+      <div class="setting-row">
+        <div><strong>Accent color</strong><span>Highlights, caret, progress bar and charts. "Theme default" uses each theme's own color.</span></div>
+        <div class="accent-row" role="group" aria-label="Accent color">
+          <button class="accent-dot auto" type="button" data-setting="accent" data-value="theme" aria-label="Theme default" title="Theme default"></button>
+          <button class="accent-dot" type="button" data-setting="accent" data-value="violet" aria-label="Violet" title="Violet" style="--dot:#7C83FD"></button>
+          <button class="accent-dot" type="button" data-setting="accent" data-value="blue" aria-label="Blue" title="Blue" style="--dot:#3F86F2"></button>
+          <button class="accent-dot" type="button" data-setting="accent" data-value="teal" aria-label="Teal" title="Teal" style="--dot:#1FA3A3"></button>
+          <button class="accent-dot" type="button" data-setting="accent" data-value="green" aria-label="Green" title="Green" style="--dot:#35A06B"></button>
+          <button class="accent-dot" type="button" data-setting="accent" data-value="pink" aria-label="Pink" title="Pink" style="--dot:#E5629A"></button>
+          <button class="accent-dot" type="button" data-setting="accent" data-value="orange" aria-label="Orange" title="Orange" style="--dot:#EE8530"></button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Appearance</h2>
+    <div class="neu panel settings-list">
+      <div class="setting-row">
+        <div><strong>Text size</strong><span>Size of the typing text.</span></div>
+        <div class="seg" role="group" aria-label="Text size">
+          <button class="btn" type="button" data-setting="fontSize" data-value="sm">Small</button>
+          <button class="btn" type="button" data-setting="fontSize" data-value="md">Medium</button>
+          <button class="btn" type="button" data-setting="fontSize" data-value="lg">Large</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div><strong>Typing font</strong><span>Monospace font used for the test text.</span></div>
+        <div class="seg" role="group" aria-label="Typing font">
+          <button class="btn" type="button" data-setting="font" data-value="jetbrains">JetBrains</button>
+          <button class="btn" type="button" data-setting="font" data-value="fira">Fira Code</button>
+          <button class="btn" type="button" data-setting="font" data-value="source">Source Code</button>
+          <button class="btn" type="button" data-setting="font" data-value="system">System</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div><strong>Caret style</strong><span>How the typing position is shown.</span></div>
+        <div class="seg" role="group" aria-label="Caret style">
+          <button class="btn" type="button" data-setting="caret" data-value="line">Line</button>
+          <button class="btn" type="button" data-setting="caret" data-value="block">Block</button>
+          <button class="btn" type="button" data-setting="caret" data-value="underline">Underline</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Typing</h2>
+    <div class="neu panel settings-list">
+      <div class="setting-row">
+        <div><strong>Typing language</strong><span>Word list used for Random and Common words (Practice) and in Versus. Code stays in English.</span></div>
+        <select class="select neu-inset" id="langSet" data-lang-select aria-label="Typing language"></select>
+      </div>
+      <div class="setting-row">
+        <div><strong>Stop on error</strong><span>Wrong keys are blocked until you press the right one.</span></div>
+        <button class="switch" type="button" role="switch" data-toggle="stopOnError" aria-checked="false" aria-label="Stop on error"><span class="knob"></span></button>
+      </div>
+      <div class="setting-row">
+        <div><strong>Pause when leaving the tab</strong><span>Freezes the timer if you switch windows mid-test.</span></div>
+        <button class="switch" type="button" role="switch" data-toggle="autoPause" aria-checked="true" aria-label="Pause when leaving the tab"><span class="knob"></span></button>
+      </div>
+      <div class="setting-row">
+        <div><strong>Typing sounds</strong><span>Soft key click, lower tone for mistakes. Off by default.</span></div>
+        <button class="switch" type="button" role="switch" data-toggle="sound" aria-checked="false" aria-label="Typing sounds"><span class="knob"></span></button>
+      </div>
+      <div class="setting-row">
+        <div><strong>Sound volume</strong><span>Only applies when sounds are on.</span></div>
+        <div class="seg" role="group" aria-label="Sound volume">
+          <button class="btn" type="button" data-setting="volume" data-value="low">Low</button>
+          <button class="btn" type="button" data-setting="volume" data-value="med">Medium</button>
+          <button class="btn" type="button" data-setting="volume" data-value="high">High</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div><strong>Daily goal</strong><span>Tests per day to keep your streak going.</span></div>
+        <div class="seg" role="group" aria-label="Daily goal">
+          <button class="btn" type="button" data-setting="goal" data-value="1">1</button>
+          <button class="btn" type="button" data-setting="goal" data-value="3">3</button>
+          <button class="btn" type="button" data-setting="goal" data-value="5">5</button>
+          <button class="btn" type="button" data-setting="goal" data-value="10">10</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Keyboard</h2>
+    <div class="neu panel settings-list">
+      <div class="setting-row">
+        <div><strong>On-screen keyboard</strong><span>Show the key feedback keyboard under the test (hidden on touch screens).</span></div>
+        <button class="switch" id="kbSwitch" type="button" role="switch" data-toggle="showKeyboard" aria-checked="true" aria-label="On-screen keyboard"><span class="knob"></span></button>
+      </div>
+      <div class="setting-row">
+        <div><strong>Keyboard layout</strong><span>Only changes the on-screen keyboard.</span></div>
+        <div class="seg" role="group" aria-label="Keyboard layout">
+          <button class="btn" type="button" data-setting="layout" data-value="qwerty">QWERTY</button>
+          <button class="btn" type="button" data-setting="layout" data-value="dvorak">Dvorak</button>
+          <button class="btn" type="button" data-setting="layout" data-value="colemak">Colemak</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Accessibility</h2>
+    <div class="neu panel settings-list">
+      <div class="setting-row">
+        <div><strong>Reduce motion</strong><span>Turns off animations and smooth scrolling. Also follows your system setting.</span></div>
+        <button class="switch" type="button" role="switch" data-toggle="reducedMotion" aria-checked="false" aria-label="Reduce motion"><span class="knob"></span></button>
+      </div>
+      <div class="setting-row">
+        <div><strong>High contrast</strong><span>Stronger text colors and visible outlines on every control.</span></div>
+        <button class="switch" type="button" role="switch" data-toggle="highContrast" aria-checked="false" aria-label="High contrast"><span class="knob"></span></button>
+      </div>
+    </div>
+
+    <div class="neu panel settings-list" id="installRow" hidden>
+      <div class="setting-row">
+        <div><strong>Install Softra</strong><span>Add it to your device and use it offline.</span></div>
+        <button class="btn primary" id="installBtn" type="button">Install app</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">Softra · everything is stored locally in your browser</footer>
+
+<!-- Dialogs -->
+<dialog id="customDialog" class="neu-dialog" aria-labelledby="customTitle">
+  <form method="dialog" id="customForm">
+    <h2 id="customTitle">Custom test</h2>
+    <label class="field-label" for="customKind">Type</label>
+    <select id="customKind" class="field neu-inset">
+      <option value="time">Time (seconds)</option>
+      <option value="words">Words</option>
+    </select>
+    <label class="field-label" for="customValue">Amount <span id="customRange" class="hint">(5 to 600)</span></label>
+    <input id="customValue" class="field neu-inset" type="number" min="5" max="600" value="45" required>
+    <div class="dialog-actions">
+      <button class="btn" type="button" id="customCancel">Cancel</button>
+      <button class="btn primary" type="submit">Apply</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="profileDialog" class="neu-dialog" aria-labelledby="profileTitle">
+  <form method="dialog" id="profileForm">
+    <h2 id="profileTitle">Profile</h2>
+    <p class="hint">Your name is only stored on this device and appears on your results.</p>
+    <label class="field-label" for="profileName">Display name</label>
+    <input id="profileName" class="field neu-inset" type="text" maxlength="20" placeholder="Guest" autocomplete="off">
+    <div class="dialog-actions">
+      <button class="btn" type="button" id="guestBtn">Use guest mode</button>
+      <button class="btn primary" type="submit">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="helpDialog" class="neu-dialog wide" aria-labelledby="helpTitle">
+  <h2 id="helpTitle">Keyboard shortcuts</h2>
+  <table class="shortcuts">
+    <tbody>
+      <tr><td><kbd>Tab</kbd> then <kbd>Enter</kbd></td><td>Restart with new text</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>Restart with new text</td></tr>
+      <tr><td><kbd>Ctrl</kbd> + <kbd>Backspace</kbd></td><td>Delete the whole word</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>1</kbd> to <kbd>5</kbd></td><td>Test, Practice, Leaderboard, Settings, Versus</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>T</kbd></td><td>Cycle time modes</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>W</kbd></td><td>Cycle word modes</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>D</kbd></td><td>Cycle difficulty</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>P</kbd> / <kbd>N</kbd></td><td>Toggle punctuation / numbers</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>K</kbd></td><td>Show or hide on-screen keyboard</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>S</kbd></td><td>Sound on or off</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>L</kbd></td><td>Light or dark theme</td></tr>
+      <tr><td><kbd>Alt</kbd> + <kbd>/</kbd></td><td>Open this list</td></tr>
+    </tbody>
+  </table>
+  <div class="dialog-actions">
+    <button class="btn primary" type="button" id="helpClose">Close</button>
+  </div>
+</dialog>
+
+<dialog id="cardDialog" class="neu-dialog card-dialog" aria-labelledby="cardTitle">
+  <h2 id="cardTitle">Share card</h2>
+  <div class="card-stage neu-inset"><canvas id="cardCanvas" role="img" aria-label="Preview of your share card"></canvas></div>
+  <div class="card-themes" id="cardThemes" role="group" aria-label="Card style"></div>
+  <div class="dialog-actions">
+    <button class="btn" type="button" id="cardClose">Close</button>
+    <button class="btn" type="button" id="cardCopy">Copy image</button>
+    <button class="btn" type="button" id="cardShare" hidden>Share</button>
+    <button class="btn primary" type="button" id="cardDownload">Download PNG</button>
+  </div>
+</dialog>
+
+<div class="react-dock neu" id="reactDock" hidden role="group" aria-label="Reactions (Alt + 1 to 6 during a race)"></div>
+<div class="react-layer" id="reactLayer" aria-hidden="true"></div>
+
+<div class="countdown" id="raceCountdown" hidden aria-live="assertive"><span id="cdNum">3</span></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+<script src="config.js" defer></script>
+<script src="languages.js" defer></script>
+<script src="practice-words.js" defer></script>
+<script src="app.js" defer></script>
+<script src="logo.js" defer></script>
+<script src="practice.js" defer></script>
+<script src="achievements.js" defer></script>
+<script src="cards.js" defer></script>
+<script src="multiplayer.js" defer></script>
+</body>
+</html>
