@@ -10,5 +10,5 @@
    ========================================================= */
 window.NEUTYPE_CONFIG = {
   SUPABASE_URL: 'https://kbqjayarvymwlisogqlj.supabase.co',
-  SUPABASE_KEY: ''   // <- paste your sb_publishable_... key between the quotes
+  SUPABASE_KEY: 'sb_publishable_jEbWmode8nQImjPDy2MOhw_iEmfkUQ8'   // <- paste your sb_publishable_... key between the quotes
 };
